@@ -72,55 +72,56 @@ function App() {
   };
 
   return (
-      <div className="bg-black shadow-xl rounded-2xl p-6 sm:p-8 w-full max-w-md sm:max-w-lg">
+    <div className="min-h-screen bg-gray-900 sm:py-4 sm:px-6 flex items-center justify-center">
+      <div className="bg-gray-800 shadow-2xl rounded-none sm:rounded-2xl p-4 sm:p-6 w-full h-full sm:h-auto sm:max-w-md">
         {/* Header and Reset */}
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl sm:text-3xl font-bold text-blue-600">Calorie Tracker</h1>
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-xl sm:text-2xl font-bold text-blue-400">Calorie Tracker</h1>
           <button
             onClick={handleReset}
-            className="text-sm px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+            className="text-sm px-3 py-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors active:bg-red-700"
           >
             Reset All
           </button>
         </div>
 
         {/* Input Section */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div>
-            <label className="block font-semibold text-amber-600 mb-1">Calories Target</label>
+            <label className="block font-medium text-amber-400 mb-1 text-sm">Calories Target</label>
             <input
               type="number"
               value={target}
               onChange={(e) => setTarget(e.target.value)}
               placeholder="e.g. 2500"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 text-white placeholder-gray-400"
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-amber-600 mb-1">Calories Burned</label>
+            <label className="block font-medium text-amber-400 mb-1 text-sm">Calories Burned</label>
             <input
               type="number"
               value={burned}
               onChange={(e) => setBurned(e.target.value)}
               placeholder="e.g. 500"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 text-white placeholder-gray-400"
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-amber-600 mb-1">Meal Calories</label>
+            <label className="block font-medium text-amber-400 mb-1 text-sm">Meal Calories</label>
             <div className="flex gap-2">
               <input
                 type="number"
                 value={meal}
                 onChange={(e) => setMeal(e.target.value)}
                 placeholder="e.g. 600"
-                className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                className="flex-1 px-4 py-2.5 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 text-white placeholder-gray-400"
               />
               <button
                 onClick={handleAddMeal}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                className="px-4 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors active:bg-blue-700 min-w-[80px]"
               >
                 Add
               </button>
@@ -129,15 +130,15 @@ function App() {
         </div>
 
         {/* Meal List */}
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold mb-2 text-red-600">Meals</h2>
-          <ul className="space-y-2 max-h-40 overflow-y-auto">
+        <div className="mt-4">
+          <h2 className="text-base font-semibold mb-2 text-red-400">Meals</h2>
+          <ul className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
             {meals.map((m, index) => (
-              <li key={index} className="flex justify-between items-center text-black bg-green-50 p-2 rounded border">
-                <span>{m} KCAL</span>
+              <li key={index} className="flex justify-between items-center bg-gray-700 p-3 rounded-lg border border-gray-600">
+                <span className="text-white">{m} KCAL</span>
                 <button
                   onClick={() => handleRemoveMeal(index)}
-                  className="text-xs px-2 py-1 bg-red-400 text-white rounded hover:bg-red-500"
+                  className="text-xs px-3 py-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors active:bg-red-700"
                 >
                   Remove
                 </button>
@@ -146,24 +147,32 @@ function App() {
           </ul>
         </div>
 
-        {/* Summary (with burned) */}
-        <div className="mt-6 border-t pt-4 text-sm space-y-1">
-          <h3 className="text-blue-600 font-semibold">With Calories Burned</h3>
-          <p><strong>Total Consumed:</strong> {totalCalories} KCAL</p>
-          <p><strong>Target:</strong> {target || 0} KCAL</p>
-          <p><strong>Burned:</strong> {burned || 0} KCAL</p>
-          <p><strong>Net Calories:</strong> {netCalories} KCAL</p>
-          <p><strong>Calories Left:</strong> {caloriesLeft} KCAL</p>
-        </div>
+        {/* Summary Sections */}
+        <div className="mt-4 space-y-3">
+          {/* With burned */}
+          <div className="bg-gray-700 p-3 rounded-lg border border-gray-600">
+            <h3 className="text-blue-400 font-medium text-sm mb-2">With Calories Burned</h3>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <p className="text-gray-300"><span className="text-gray-400">Total:</span> {totalCalories} KCAL</p>
+              <p className="text-gray-300"><span className="text-gray-400">Target:</span> {target || 0} KCAL</p>
+              <p className="text-gray-300"><span className="text-gray-400">Burned:</span> {burned || 0} KCAL</p>
+              <p className="text-gray-300"><span className="text-gray-400">Net:</span> {netCalories} KCAL</p>
+              <p className="text-gray-300 col-span-2"><span className="text-gray-400">Left:</span> {caloriesLeft} KCAL</p>
+            </div>
+          </div>
 
-        {/* Summary (without burned) */}
-        <div className="mt-4 border-t pt-4 text-sm space-y-1">
-          <h3 className="text-purple-600 font-semibold">Without Calories Burned</h3>
-          <p><strong>Total Consumed:</strong> {totalCalories} KCAL</p>
-          <p><strong>Target:</strong> {target || 0} KCAL</p>
-          <p><strong>Calories Left:</strong> {caloriesLeftWithoutBurned} KCAL</p>
+          {/* Without burned */}
+          <div className="bg-gray-700 p-3 rounded-lg border border-gray-600">
+            <h3 className="text-purple-400 font-medium text-sm mb-2">Without Calories Burned</h3>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <p className="text-gray-300"><span className="text-gray-400">Total:</span> {totalCalories} KCAL</p>
+              <p className="text-gray-300"><span className="text-gray-400">Target:</span> {target || 0} KCAL</p>
+              <p className="text-gray-300 col-span-2"><span className="text-gray-400">Left:</span> {caloriesLeftWithoutBurned} KCAL</p>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
   );
 }
 
