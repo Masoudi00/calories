@@ -198,6 +198,7 @@ function App() {
                     <option value="snack">Snack</option>
                     <option value="other">Other</option>
                   </select>
+                  <br />
                   <button
                     onClick={handleAddMeal}
                     className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200 active:bg-blue-700"
